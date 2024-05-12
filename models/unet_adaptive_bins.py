@@ -98,7 +98,7 @@ class UnetAdaptiveBins(nn.Module):
         # n, c, h, w = out.shape
         # hist = torch.sum(out.view(n, c, h * w), dim=2) / (h * w)  # not used for training
 
-        bin_widths = (self.max_val - self.min_val) * bin_widths_normed  # .shape = N, dim_out
+        bin_widths = (self.max_val - self.min_val) * bin_widths_normed  # .shape = N, dim_out  深度范围映射
         bin_widths = nn.functional.pad(bin_widths, (1, 0), mode='constant', value=self.min_val)
         bin_edges = torch.cumsum(bin_widths, dim=1)
 
